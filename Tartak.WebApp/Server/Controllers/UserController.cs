@@ -44,11 +44,11 @@ namespace Tartak.WebApp.Server.Controllers
         {
             List<ApplicationUser> output = new List<ApplicationUser>();
 
-            foreach (var user in _context.Users)
+            foreach (var user in _context.Users.AsEnumerable())
             {
                 ApplicationUser applicationUserModel = new ApplicationUser();
                 applicationUserModel.Id = user.Id;
-                applicationUserModel.Email = user.Email;
+                //applicationUserModel.Email = user?.Email;
 
                 applicationUserModel.Roles = _context.UserRoles.Where(x => x.UserId == user.Id).Join(_context.Roles, x => x.RoleId, y => y.Id, (x, y) => y.Name).ToList();
 
@@ -73,7 +73,6 @@ namespace Tartak.WebApp.Server.Controllers
         {
             string loggedInuserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedUser = _userData.GetUserByID(loggedInuserId).Single();
-
             var user = await _userManager.FindByIdAsync(data.UserId);
 
             _logger.LogInformation("Admin {Admin} added user {User} to role {Role}",

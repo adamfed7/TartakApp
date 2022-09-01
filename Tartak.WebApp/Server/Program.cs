@@ -108,8 +108,44 @@ app.UseRouting();
 
 using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
 {
+    var roles = new List<IdentityRole>();
+    roles.Add(new IdentityRole()
+    {
+        Name = "Admin",
+        NormalizedName = "Admin".ToUpperInvariant()
+    });
+    roles.Add(new IdentityRole()
+    {
+        Name = "Manager",
+        NormalizedName = "Manager".ToUpperInvariant()
+    });
     var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    context.Database.EnsureCreated();
+    bool creating = context.Database.EnsureCreated();
+    if (creating)
+    {
+        var usermanager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        context.Roles.AddRange(roles);
+        context.SaveChanges();
+        var admin = new IdentityUser()
+        {
+            UserName = "Admin",
+        };
+        await usermanager.CreateAsync(admin);
+        admin = await usermanager.FindByNameAsync("Admin");
+        await usermanager.AddPasswordAsync(admin, "admin");
+        await usermanager.AddToRoleAsync(admin, "Admin");
+
+        var manager = new IdentityUser()
+        {
+            UserName = "Manager",
+        };
+        await usermanager.CreateAsync(manager);
+        manager = await usermanager.FindByNameAsync("Manager");
+        await usermanager.AddPasswordAsync(manager, "manager");
+        await usermanager.AddToRoleAsync(manager, "Manager");
+        usermanager.Dispose();
+    }
+    context.Dispose();
 }
 
 app.UseAuthentication();

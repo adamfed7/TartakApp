@@ -35,13 +35,13 @@ namespace Tartak.WebApp.Server.Controllers
 
         private async Task<bool> IsValidUsernameAndPassword(string username, string password)
         {
-            var user = await _userManager.FindByEmailAsync(username);
+            var user = await _userManager.FindByNameAsync(username);
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
         private async Task<dynamic> GenerateToken(string username)
         {
-            var user = await _userManager.FindByEmailAsync(username);
+            var user = await _userManager.FindByNameAsync(username);
             var roles = _context.UserRoles
                 .Join(_context.Roles, x => x.RoleId, y => y.Id, (x, y) => new { x.UserId, x.RoleId, y.Name })
                 .Where(x => x.UserId == user.Id);
