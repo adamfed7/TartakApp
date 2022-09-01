@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Tartak.WebApp.Shared;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {

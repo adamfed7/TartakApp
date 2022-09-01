@@ -1,0 +1,44 @@
+﻿@page "/ProduktySklep"
+@using Tartak.WebApp.Shared.Models
+@inject HttpClient Http
+
+<h3>ProduktySklep</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in _products ?? new ProductModel[0])
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@($"{product.Price} zł")</td>
+                <td>@product.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+    ProductModel[]? _products;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _products = await Http.GetFromJsonAsync<ProductModel[]>("SklepkurkiewiczProduct");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}

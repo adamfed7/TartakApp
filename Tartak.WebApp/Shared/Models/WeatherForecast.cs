@@ -1,4 +1,4 @@
-namespace Tartak.WebApp.Shared
+namespace Tartak.WebApp.Shared.Models
 {
     public class WeatherForecast
     {
