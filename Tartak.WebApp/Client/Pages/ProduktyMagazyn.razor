@@ -3,8 +3,8 @@
 @using Tartak.WebApp.Shared.Models
 @inject HttpClient Http
 
-<h3>ProduktyMagazyn</h3>
-
+<h3>Warehouse</h3>
+<button type="button" class="btn btn-secondary">Add product</button>
 <table class="table">
     <thead>
         <tr>
@@ -12,6 +12,7 @@
             <th>Description</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,10 @@
                 <td>@product.Description</td>
                 <td>@($"{product.Price} zł")</td>
                 <td>@product.Quantity</td>
+                <td>
+                    <button type="button" class="btn btn-warning" style="margin:10;">Edit</button>
+                    <button type="button" class="btn btn-danger" style="margin:10;">Delete</button>
+                </td>
             </tr>
         }
     </tbody>
