@@ -22,7 +22,7 @@
         <div class="form-group row m-b-15">
             <label class="col-md-3 col-form-label">Password</label>
             <div class="col-md-7">
-                <input @bind-value="Password" type="text" class="form-control" placeholder="Enter password" />
+                <input @bind-value="Password" type="password" class="form-control" placeholder="Enter password" />
             </div>
         </div>
         <button type="submit" @onclick="LoginUser" class="btn btn-sm btn-primary m-r-5">Login</button>
@@ -69,15 +69,15 @@
                     user.UserLoggedIn();
                     Username = "";
                     Password = "";
-                    await InvokeAsync(() =>
-                    {
-                        StateHasChanged();
-                    });
                     Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {user.Token}");
                     var appuser = await Http.GetFromJsonAsync<ApplicationUser>("User");
                     user.Id = appuser.Id;
-                    user.Ismanager = appuser.Roles.Contains("Manager");
+                    user.IsManager = appuser.Roles.Contains("Manager");
                     user.IsAdmin = appuser.Roles.Contains("Admin");
+                    await InvokeAsync(() =>
+                            {
+                            StateHasChanged();
+                            });
                 }
                 else
                 {

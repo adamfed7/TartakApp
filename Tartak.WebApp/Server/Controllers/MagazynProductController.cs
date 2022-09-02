@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
@@ -8,6 +9,7 @@ namespace Tartak.WebApp.Server.Controllers
     public class MagazynProductController : ControllerBase
     {
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public IEnumerable<ProductModel> Get()
         {
             var data = new List<ProductModel>();
@@ -23,6 +25,7 @@ namespace Tartak.WebApp.Server.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Manager")]
         public ProductModel Get(int id)
         {
             return new ProductModel()
@@ -36,16 +39,19 @@ namespace Tartak.WebApp.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public void Post([FromBody] ProductModel value)
         {
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Manager")]
         public void Put(int id, [FromBody] ProductModel value)
         {
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Manager")]
         public void Delete(int id)
         {
         }
