@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using Tartak.WebApp.Client.Model
+@inherits LayoutComponentBase
+@inject User user
+@inject IServiceProvider services;
 
 <div class="page">
     <div class="sidebar">
@@ -7,7 +10,10 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            @if (user.IsLoggedIn)
+            {
+                <button onclick="@LogOut">Logout</button>
+            }
         </div>
 
         <article class="content px-4">
@@ -15,3 +21,16 @@
         </article>
     </main>
 </div>
+
+@code{
+    public void LogOut(){
+        user.UserLoggedOut();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        user.UserStatusChanged += async (object? sender, EventArgs args) => await InvokeAsync(() =>
+                                                                                {
+                                                                                    StateHasChanged();
+                                                                                });
+    }
+}

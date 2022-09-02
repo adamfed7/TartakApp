@@ -1,4 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+@using Tartak.WebApp.Client.Model
+@inject User user
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Tartak.WebApp</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -14,16 +17,27 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
+      @if(user.IsManager)
+      {
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="produktymagazyn">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Magazyn
             </NavLink>
         </div>
+        }
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="produktysklep">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Sklep
+
+        @if (user.IsAdmin)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="usersmanagement">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Users Management
+
             </NavLink>
         </div>
+        }
     </nav>
 </div>
 
@@ -35,5 +49,12 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        user.UserStatusChanged += async (object? sender, EventArgs args) => await InvokeAsync(() =>
+                                                                                {
+                                                                                    StateHasChanged();
+                                                                                });
     }
 }

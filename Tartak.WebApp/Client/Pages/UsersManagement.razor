@@ -1,0 +1,58 @@
+﻿@page "/UsersManagement"
+@using System.Text.Json
+@using Tartak.WebApp.Client.Model
+@using Tartak.WebApp.Shared.Models;
+@inject HttpClient Http
+@inject User user
+
+<h3>UsersManagement</h3>
+
+<button type="button" class="btn btn-secondary">Add user</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in _products ?? new ApplicationUser[0])
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>
+                    <table class="table" >
+                    <tbody>
+                        @foreach (var role in _roles)
+                        {
+                            <tr>
+                                <td style="width:150px;">@role.Value</td>
+                                <input disabled type="checkbox" checked="@(product.Roles.Contains(role.Value))" style="margin-top: 15px;" />
+                            </tr>
+                        }
+                     </tbody>
+                </table>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+    ApplicationUser[]? _products;
+    Dictionary<string, string>? _roles;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _products = await Http.GetFromJsonAsync<ApplicationUser[]>("User/GetAllUsers");
+            _roles = await Http.GetFromJsonAsync<Dictionary<string, string>>("User/GetAllRoles");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}

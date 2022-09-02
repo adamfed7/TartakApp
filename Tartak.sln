@@ -1,13 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32708.82
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tartak.WebApp.Server", "Tartak.WebApp\Server\Tartak.WebApp.Server.csproj", "{EA350A82-A073-4D30-8399-C87880294F9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Server", "Tartak.WebApp\Server\Tartak.WebApp.Server.csproj", "{EA350A82-A073-4D30-8399-C87880294F9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tartak.WebApp.Client", "Tartak.WebApp\Client\Tartak.WebApp.Client.csproj", "{1FCE28D7-00A6-4D61-95DE-51A06CF8AD0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Client", "Tartak.WebApp\Client\Tartak.WebApp.Client.csproj", "{1FCE28D7-00A6-4D61-95DE-51A06CF8AD0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tartak.WebApp.Shared", "Tartak.WebApp\Shared\Tartak.WebApp.Shared.csproj", "{BF73FABB-19BC-4CD9-883A-D2B23E9BFB16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Shared", "Tartak.WebApp\Shared\Tartak.WebApp.Shared.csproj", "{BF73FABB-19BC-4CD9-883A-D2B23E9BFB16}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Library", "Tartak.WebApp.Library\Tartak.WebApp.Library.csproj", "{EA1619EA-C912-444F-8463-2607EBA0C368}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tartak.Magazyn", "Tartak.Magazyn\Tartak.Magazyn.csproj", "{3451C28A-1D4D-4C9D-9676-A9E20CA48B5A}"
 EndProject
@@ -59,6 +61,10 @@ Global
 		{AEFB9F27-48F4-4E12-BB83-839147F3579A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEFB9F27-48F4-4E12-BB83-839147F3579A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AEFB9F27-48F4-4E12-BB83-839147F3579A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EA1619EA-C912-444F-8463-2607EBA0C368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA1619EA-C912-444F-8463-2607EBA0C368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA1619EA-C912-444F-8463-2607EBA0C368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA1619EA-C912-444F-8463-2607EBA0C368}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
