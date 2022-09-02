@@ -5,14 +5,13 @@ using System.Data;
 using System.Security.Claims;
 using Tartak.WebApp.Library.DataAccess;
 using Tartak.WebApp.Server.Data;
-using Tartak.WebApp.Server.Models;
+using Tartak.WebApp.Shared.Models;
 using TRMDataManager.Library.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -39,11 +38,10 @@ namespace Tartak.WebApp.Server.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("Admin/GetAllUsers")]
+        [Route("GetAllUsers")]
         public List<ApplicationUser> GetAllUsers()
         {
             List<ApplicationUser> output = new List<ApplicationUser>();
-
             foreach (var user in _context.Users)
             {
                 ApplicationUser applicationUserModel = new ApplicationUser();
@@ -59,7 +57,7 @@ namespace Tartak.WebApp.Server.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("Admin/GetAllRoles")]
+        [Route("GetAllRoles")]
         public Dictionary<string, string> GetAllRoles()
         {
             var output = _context.Roles.ToDictionary(x => x.Id, x => x.Name);

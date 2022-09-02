@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Tartak.WebApp.Library\Tartak.WebApp.Library.csproj" />
     <ProjectReference Include="..\Shared\Tartak.WebApp.Shared.csproj" />
   </ItemGroup>
 
