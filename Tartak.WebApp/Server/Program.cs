@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using Tartak.WebApp.Library.DataAccess;
 using Tartak.WebApp.Server.Data;
 using TRMDataManager.Library.Internal.DataAccess;
 
@@ -48,7 +47,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddTransient<IUserData, UserData>();
 builder.Services.AddTransient<ISQLDataAccess, SQLDataAccess>();
 
 builder.Services.AddSwaggerGen(c =>

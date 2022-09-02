@@ -47,8 +47,8 @@
     {
         try
         {
-            _products = await Http.GetFromJsonAsync<ApplicationUser[]>("User/GetAllUsers");
-            _roles = await Http.GetFromJsonAsync<Dictionary<string, string>>("User/GetAllRoles");
+            _products = await Http.GetFromJsonAsync<ApplicationUser[]>("api/User/GetAllUsers");
+            _roles = await Http.GetFromJsonAsync<Dictionary<string, string>>("api/User/GetAllRoles");
         }
         catch (Exception ex)
         {

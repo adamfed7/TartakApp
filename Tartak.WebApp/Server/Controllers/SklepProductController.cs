@@ -3,8 +3,8 @@ using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class SklepProductController : ControllerBase
     {
         [HttpGet]

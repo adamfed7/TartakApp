@@ -37,7 +37,7 @@
     {
         try
         {
-            _products = await Http.GetFromJsonAsync<ProductModel[]>("SklepkurkiewiczProduct");
+            _products = await Http.GetFromJsonAsync<ProductModel[]>("api/SklepProduct");
         }
         catch (Exception ex)
         {

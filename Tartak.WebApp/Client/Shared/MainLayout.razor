@@ -2,6 +2,7 @@
 @inherits LayoutComponentBase
 @inject User user
 @inject IServiceProvider services;
+@inject HttpClient Http
 
 <div class="page">
     <div class="sidebar">
@@ -24,6 +25,7 @@
 
 @code{
     public void LogOut(){
+        Http.DefaultRequestHeaders.Clear();
         user.UserLoggedOut();
     }
     protected override async Task OnInitializedAsync()

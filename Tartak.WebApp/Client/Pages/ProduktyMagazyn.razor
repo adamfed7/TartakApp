@@ -35,12 +35,13 @@
 
 
 @code {
-    ProductModel[]? _products;
+    IEnumerable<ProductModel>? _products;
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            _products = await Http.GetFromJsonAsync<ProductModel[]>("MagazynProduct");
+            var response = await Http.GetAsync("api/MagazynProduct");
+            _products = await response.Content.ReadFromJsonAsync<IEnumerable<ProductModel>>();
         }
         catch(Exception ex){
             Console.WriteLine(ex);

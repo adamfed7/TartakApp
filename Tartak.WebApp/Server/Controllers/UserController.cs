@@ -3,31 +3,23 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Security.Claims;
-using Tartak.WebApp.Library.DataAccess;
 using Tartak.WebApp.Server.Data;
 using Tartak.WebApp.Shared.Models;
-using TRMDataManager.Library.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserData _userData;
-        private readonly ILogger<UserController> _logger;
 
         public UserController(ApplicationDbContext context,
-            UserManager<IdentityUser> userManager,
-            IUserData userData,
-            ILogger<UserController> logger)
+            UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-            _userData = userData;
-            _logger = logger;
         }
         [HttpGet]
         public ApplicationUser GetCurrentUserInfo()
@@ -75,11 +67,7 @@ namespace Tartak.WebApp.Server.Controllers
         public async Task AddRole(UserAndRoleModel data)
         {
             string loggedInuserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var loggedUser = _userData.GetUserByID(loggedInuserId).Single();
             var user = await _userManager.FindByIdAsync(data.UserId);
-
-            _logger.LogInformation("Admin {Admin} added user {User} to role {Role}",
-                loggedUser.Id, user.Id, data.RoleName);
             await _userManager.AddToRoleAsync(user, data.RoleName);
         }
 
@@ -89,12 +77,9 @@ namespace Tartak.WebApp.Server.Controllers
         public async Task RemoveRole(UserAndRoleModel data)
         {
             string loggedInuserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var loggedUser = _userData.GetUserByID(loggedInuserId).Single();
 
             var user = await _userManager.FindByIdAsync(data.UserId);
 
-            _logger.LogInformation("Admin {Admin} removed user {User} from role {Role}",
-                loggedUser.Id, user.Id, data.RoleName);
             await _userManager.RemoveFromRoleAsync(user, data.RoleName);
         }
     }

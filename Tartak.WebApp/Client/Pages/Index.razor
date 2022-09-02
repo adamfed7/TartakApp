@@ -66,14 +66,21 @@
                     user.Token = output.access_token;
                     user.Name = output.userName;
                     user.IsLoggedIn = true;
-                    user.UserLoggedIn();
                     Username = "";
                     Password = "";
                     Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {user.Token}");
-                    var appuser = await Http.GetFromJsonAsync<ApplicationUser>("User");
-                    user.Id = appuser.Id;
-                    user.IsManager = appuser.Roles.Contains("Manager");
-                    user.IsAdmin = appuser.Roles.Contains("Admin");
+                    var resp = await Http.GetAsync("api/User");
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        user.UserLoggedIn();
+                        var appuser = await resp.Content.ReadFromJsonAsync<ApplicationUser>();
+                        user.Id = appuser.Id;
+                        user.IsManager = appuser.Roles.Contains("Manager");
+                        user.IsAdmin = appuser.Roles.Contains("Admin");
+                    }
+                    else{
+                        user.UserLoggedOut();
+                    }
                     await InvokeAsync(() =>
                             {
                             StateHasChanged();
