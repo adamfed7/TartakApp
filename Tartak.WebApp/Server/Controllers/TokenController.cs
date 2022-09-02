@@ -21,7 +21,7 @@ namespace Tartak.WebApp.Server.Controllers
 
         [Route("/token")]
         [HttpPost]
-        public async Task<IActionResult> Create(string userName, string password, string grant_type)
+        public async Task<IActionResult> Create(string userName, string password)
         {
             if (await IsValidUsernameAndPassword(userName, password))
             {

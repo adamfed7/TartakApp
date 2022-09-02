@@ -1,7 +1,9 @@
 ﻿@page "/UsersManagement"
 @using System.Text.Json
+@using Tartak.WebApp.Client.Model
 @using Tartak.WebApp.Shared.Models;
 @inject HttpClient Http
+@inject User user
 
 <h3>UsersManagement</h3>
 
@@ -45,7 +47,6 @@
     {
         try
         {
-            Http.DefaultRequestHeaders.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIwNzMxZWM1LThmZDEtNDY1OS1hZjE3LTIwYjFmNDE3OWVmZSIsIm5iZiI6IjE2NjIxMDgxMTEiLCJleHAiOiIxNjYyMTk0NTExIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4ifQ.YIawS8VajUj_q__xFGkEiCHQ-_FTIvu14aJiGRtANKU");
             _products = await Http.GetFromJsonAsync<ApplicationUser[]>("User/GetAllUsers");
             _roles = await Http.GetFromJsonAsync<Dictionary<string, string>>("User/GetAllRoles");
         }

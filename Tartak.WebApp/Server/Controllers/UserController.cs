@@ -30,10 +30,15 @@ namespace Tartak.WebApp.Server.Controllers
             _logger = logger;
         }
         [HttpGet]
-        public UserModel GetCurrentUserInfo()
+        public ApplicationUser GetCurrentUserInfo()
         {
+            ApplicationUser applicationUserModel = new();
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return _userData.GetUserByID(userId).Single();
+            var user = _context.Users.Where(x => x.Id == userId).Single();
+            applicationUserModel.Id = user.Id;
+            applicationUserModel.Name = user.UserName;
+            applicationUserModel.Roles = _context.UserRoles.Where(x => x.UserId == user.Id).Join(_context.Roles, x => x.RoleId, y => y.Id, (x, y) => y.Name).ToList();
+            return applicationUserModel;
         }
 
         [Authorize(Roles = "Admin")]
