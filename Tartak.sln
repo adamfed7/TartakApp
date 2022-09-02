@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Client", "Tar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Shared", "Tartak.WebApp\Shared\Tartak.WebApp.Shared.csproj", "{BF73FABB-19BC-4CD9-883A-D2B23E9BFB16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tartak.WebApp.Library", "Tartak.WebApp.Library\Tartak.WebApp.Library.csproj", "{EA1619EA-C912-444F-8463-2607EBA0C368}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartak.WebApp.Library", "Tartak.WebApp.Library\Tartak.WebApp.Library.csproj", "{EA1619EA-C912-444F-8463-2607EBA0C368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -44,11 +44,11 @@ namespace Tartak.WebApp.Server.Controllers
         {
             List<ApplicationUser> output = new List<ApplicationUser>();
 
-            foreach (var user in _context.Users.AsEnumerable())
+            foreach (var user in _context.Users)
             {
                 ApplicationUser applicationUserModel = new ApplicationUser();
                 applicationUserModel.Id = user.Id;
-                //applicationUserModel.Email = user?.Email;
+                applicationUserModel.Name = user.UserName;
 
                 applicationUserModel.Roles = _context.UserRoles.Where(x => x.UserId == user.Id).Join(_context.Roles, x => x.RoleId, y => y.Id, (x, y) => y.Name).ToList();
 
