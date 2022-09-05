@@ -34,7 +34,7 @@ namespace Tartak.Magazyn.Helpers
             _context.Products.Update(trackingProduct);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteProduct(ProductWarehouseModel product)
+        public async Task DeleteProductAsync(ProductWarehouseModel product)
         {
             _context.Products.Where(x => x.Id == product.Id).Single().IsActual = false;
             await _context.SaveChangesAsync();
