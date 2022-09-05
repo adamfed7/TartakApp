@@ -1,16 +1,33 @@
+using Microsoft.EntityFrameworkCore;
+using Tartak.Magazyn.Context;
+using Tartak.Magazyn.Helpers;
+
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<WarehouseContext>(options =>
+    options.UseSqlServer(
+        connectionString: configuration.GetConnectionString("WarehouseAppData")
+        ));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IProductHelper, ProductHelper>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<WarehouseContext>();
+    bool creating = context.Database.EnsureCreated();
+}
+
+    if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
