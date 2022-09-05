@@ -72,11 +72,11 @@
                     var resp = await Http.GetAsync("api/User");
                     if (resp.IsSuccessStatusCode)
                     {
-                        user.UserLoggedIn();
                         var appuser = await resp.Content.ReadFromJsonAsync<ApplicationUser>();
                         user.Id = appuser.Id;
                         user.IsManager = appuser.Roles.Contains("Manager");
                         user.IsAdmin = appuser.Roles.Contains("Admin");
+                        user.UserLoggedIn();
                     }
                     else{
                         user.UserLoggedOut();
