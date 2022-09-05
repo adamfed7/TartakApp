@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Tartak.WebApp.Server.Data;
-using TRMDataManager.Library.Internal.DataAccess;
 
 IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
@@ -47,7 +46,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddTransient<ISQLDataAccess, SQLDataAccess>();
+builder.Services.AddScoped<HttpClient>();
 
 builder.Services.AddSwaggerGen(c =>
 {
