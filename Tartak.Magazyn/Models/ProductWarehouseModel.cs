@@ -13,6 +13,7 @@ namespace Tartak.Magazyn.Models
         [Required]
         public decimal PurchasePrice { get; set; }
         public uint QuantityInWarehouse { get; set; }
+        public bool IsActual { get; set; }
 
     }
 }

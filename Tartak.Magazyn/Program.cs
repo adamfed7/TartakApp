@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Tartak.Magazyn.Context;
+using Tartak.Magazyn.Helpers;
 
 IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<WarehouseContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductHelper, ProductHelper>();
 
 var app = builder.Build();
 
