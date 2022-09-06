@@ -29,7 +29,7 @@ namespace Tartak.Sklep.Controllers
         {
             await _product.GetFromWarehouseAsync(model);
         }
-        [HttpPut("EditProduct/{id}")]
+        [HttpPut]
         public async Task EditProduct([FromBody] ProductShopModel model)
         {
             await _product.EditProductAsync(model);

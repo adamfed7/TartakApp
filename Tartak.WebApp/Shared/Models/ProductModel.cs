@@ -20,8 +20,10 @@ namespace Tartak.WebApp.Shared.Models
         public string Description { get; set; }
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
+        [JsonPropertyName("purchasePrice")]
+        public decimal PurchasePrice { get; set; }
         [JsonPropertyName("quantity")]
-        public uint Quantity { get; set; }
+        public int Quantity { get; set; }
 
     }
 }

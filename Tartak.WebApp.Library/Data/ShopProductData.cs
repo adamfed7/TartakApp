@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using Tartak.Magazyn.Models;
 using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Library.Data
@@ -33,6 +34,18 @@ namespace Tartak.WebApp.Library.Data
             {
                 var result = await JsonSerializer.DeserializeAsync<ProductModel>(await response.Content.ReadAsStreamAsync());
                 return result;
+            }
+            throw new HttpRequestException();
+        }
+        public async Task UpdateProduct(ProductModel product)
+        {
+            var url = _configuration["Urls:ShopBase"] + $"ProductShop";
+            string json = JsonSerializer.Serialize(product);
+            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync(url, httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                return;
             }
             throw new HttpRequestException();
         }

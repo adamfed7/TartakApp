@@ -27,18 +27,19 @@ namespace Tartak.WebApp.Server.Controllers
         }
 
         [HttpPost("GetFromWarehouse")]
-        public void GetFromWarehouse([FromBody] ProductModel value)
+        public async Task GetFromWarehouse([FromBody] ProductModel value)
         {
 
         }
 
-        [HttpPut("EditProduct/{id}")]
-        public void EditProduct(int id, [FromBody] ProductModel value)
+        [HttpPut]
+        public async Task EditProduct([FromBody] ProductModel value)
         {
+            await _productData.UpdateProduct(value);
         }
 
         [HttpPost("SendToWarehouse/{id}")]
-        public void SendToWarehouse(int id)
+        public async Task SendToWarehouse(int id)
         {
         }
     }
