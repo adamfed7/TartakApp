@@ -12,10 +12,10 @@ namespace Tartak.Magazyn.Models
         public string Name { get; set; }
         [JsonPropertyName("description")]
         public string Description { get; set; }
-        [JsonPropertyName("purchaseprice")]
+        [JsonPropertyName("purchasePrice")]
         public decimal PurchasePrice { get; set; }
-        [JsonPropertyName("quantityinwarehouse")]
-        public uint QuantityInWarehouse { get; set; }
+        [JsonPropertyName("quantityInWarehouse")]
+        public int QuantityInWarehouse { get; set; }
 
     }
 }

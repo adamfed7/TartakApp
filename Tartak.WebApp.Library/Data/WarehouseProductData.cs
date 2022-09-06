@@ -36,5 +36,39 @@ namespace Tartak.WebApp.Library.Data
             }
             throw new HttpRequestException();
         }
+        public async Task CreateProduct(ProductWarehouseModel product)
+        {
+            var url = _configuration["Urls:WarehouseBase"] + $"ProductWarehouse";
+            string json = JsonSerializer.Serialize(product);
+            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(url, httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+            throw new HttpRequestException();
+        }
+        public async Task DeleteProduct(int id)
+        {
+            var url = _configuration["Urls:WarehouseBase"] + $"ProductWarehouse/{id}";
+            var response = await _httpClient.DeleteAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+            throw new HttpRequestException();
+        }
+        public async Task UpdateProduct(ProductWarehouseModel product)
+        {
+            var url = _configuration["Urls:WarehouseBase"] + $"ProductWarehouse";
+            string json = JsonSerializer.Serialize(product);
+            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync(url,httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+            throw new HttpRequestException();
+        }
     }
 }

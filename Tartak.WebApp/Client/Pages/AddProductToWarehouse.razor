@@ -1,0 +1,50 @@
+﻿@page "/Produktymagazyn/Add"
+@using Tartak.Magazyn.Models
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h3>AddProductToWarehouse</h3>
+
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><textbox>Name: </textbox></td>
+                <td><InputText id="name" @bind-Value="exampleModel.Name"></InputText></td>
+            </tr>
+            <tr>
+                <td><textbox>Description: </textbox></td>
+                <td><InputTextArea id="description" @bind-Value="exampleModel.Description"></InputTextArea></td>
+            </tr>
+            <tr>
+                <td><textbox>Purchase price: </textbox></td>
+                <td><InputNumber id="price" @bind-Value="exampleModel.PurchasePrice"></InputNumber></td>
+            </tr>
+            <tr>
+                <td><textbox>Quantity: </textbox></td>
+                <td><InputNumber id="quantity" @bind-Value="exampleModel.QuantityInWarehouse"></InputNumber></td>
+            </tr>
+        </tbody>
+     </table>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    public ProductWarehouseModel exampleModel = new();
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/MagazynProduct",exampleModel);
+            if(response.IsSuccessStatusCode)
+            {
+                NavManager.NavigateTo("/Produktymagazyn");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}

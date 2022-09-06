@@ -34,10 +34,10 @@ namespace Tartak.Magazyn.Controllers
         {
             await _product.UpdateProductAsync(model);
         }
-        [HttpDelete]
-        public async Task Delete(ProductWarehouseModel model)
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
         {
-            await _product.DeleteProductAsync(model);
+            await _product.DeleteProductAsync(id);
         }
     }
 }

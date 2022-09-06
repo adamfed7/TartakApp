@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using Tartak.Magazyn.Models;
 using Tartak.WebApp.Library.Data;
-using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {
@@ -35,20 +32,23 @@ namespace Tartak.WebApp.Server.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Manager")]
-        public void Post([FromBody] ProductWarehouseModel value)
+        public async Task Post([FromBody] ProductWarehouseModel value)
         {
+            await _productData.CreateProduct(value);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "Manager")]
-        public void Put(int id, [FromBody] ProductWarehouseModel value)
+        public async void Put([FromBody] ProductWarehouseModel value)
         {
+            await _productData.UpdateProduct(value);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Manager")]
-        public void Delete(int id)
+        public async void Delete(int id)
         {
+            await _productData.DeleteProduct(id);
         }
     }
 }
