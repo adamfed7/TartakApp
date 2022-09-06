@@ -39,14 +39,14 @@ namespace Tartak.WebApp.Server.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Manager")]
-        public async void Put([FromBody] ProductWarehouseModel value)
+        public async Task Put([FromBody] ProductWarehouseModel value)
         {
             await _productData.UpdateProduct(value);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Manager")]
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             await _productData.DeleteProduct(id);
         }

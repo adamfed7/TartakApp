@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Tartak.WebApp.Library.Data;
 using Tartak.WebApp.Shared.Models;
 

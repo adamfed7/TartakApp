@@ -40,13 +40,18 @@
     IEnumerable<ProductWarehouseModel>? _products;
     protected override async Task OnInitializedAsync()
     {
+        _products = await GetProducts();
+    }
+    private async Task<IEnumerable<ProductWarehouseModel>>? GetProducts()
+    {
         try
         {
             var response = await Http.GetAsync("api/MagazynProduct");
-            _products = await response.Content.ReadFromJsonAsync<IEnumerable<ProductWarehouseModel>>();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<ProductWarehouseModel>>();
         }
-        catch(Exception ex){
-            Console.WriteLine(ex);
+        catch (Exception ex)
+        {
+            throw;
         }
     }
     protected async Task DeleteProduct(ProductWarehouseModel product)
@@ -54,7 +59,8 @@
         try
         {
             var response = await Http.DeleteAsync($"api/MagazynProduct/{product.Id}");
-            NavManager.NavigateTo(NavManager.Uri);
+            _products = await GetProducts();
+            await InvokeAsync(() => StateHasChanged());
         }
         catch (Exception ex)
         {
