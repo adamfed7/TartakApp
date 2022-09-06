@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using Tartak.Magazyn.Models;
 using Tartak.WebApp.Library.Data;
 using Tartak.WebApp.Shared.Models;
 
@@ -20,27 +21,27 @@ namespace Tartak.WebApp.Server.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Manager")]
-        public async Task<IEnumerable<ProductModel>> Get()
+        public async Task<IEnumerable<ProductWarehouseModel>> Get()
         {
             return await _productData.GetProductsAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Manager")]
-        public async Task<ProductModel> Get(int id)
+        public async Task<ProductWarehouseModel> Get(int id)
         {
             return await _productData.GetProductByIdAsync(id);
         }
 
         [HttpPost]
         [Authorize(Roles = "Manager")]
-        public void Post([FromBody] ProductModel value)
+        public void Post([FromBody] ProductWarehouseModel value)
         {
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Manager")]
-        public void Put(int id, [FromBody] ProductModel value)
+        public void Put(int id, [FromBody] ProductWarehouseModel value)
         {
         }
 

@@ -35,8 +35,7 @@ namespace Tartak.Sklep.Helpers
         }
         public async Task SendToWarehouseAsync(ProductShopModel product)
         {
-            _context.Products.Remove(GetProductById(product.Id));
-            await _context.SaveChangesAsync();
+
         }
     }
 }
