@@ -13,7 +13,7 @@ namespace Tartak.Magazyn.Helpers
         }
         public IEnumerable<ProductWarehouseModel> GetAllProducts()
         {
-            return _context.Products.Where(x => x.IsActual == true);
+            return _context.Products.Where(x => x.IsActual == true).AsEnumerable();
         }
         public ProductWarehouseModel GetProductById(int id)
         {

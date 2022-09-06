@@ -17,9 +17,4 @@
     <ProjectReference Include="..\Tartak.WebApp\Shared\Tartak.WebApp.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Tartak.WebApp.Library.Data;
 using Tartak.WebApp.Server.Data;
 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -47,6 +48,8 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<HttpClient>();
+builder.Services.AddScoped<ShopProductData>();
+builder.Services.AddScoped<WarehouseProductData>();
 
 builder.Services.AddSwaggerGen(c =>
 {

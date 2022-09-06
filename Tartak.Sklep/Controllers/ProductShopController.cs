@@ -24,20 +24,20 @@ namespace Tartak.Sklep.Controllers
         {
             return _product.GetProductById(id);
         }
-        [HttpPost]
-        public async void Create([FromBody] ProductShopModel model)
+        [HttpPost("GetFromWarehouse")]
+        public async Task GetFromWarehouse([FromBody] ProductShopModel model)
         {
-            await _product.AddProductAsync(model);
+            await _product.GetFromWarehouseAsync(model);
         }
-        [HttpPut]
-        public async void Update([FromBody] ProductShopModel model)
+        [HttpPut("EditProduct/{id}")]
+        public async Task EditProduct([FromBody] ProductShopModel model)
         {
-            await _product.UpdateProductAsync(model);
+            await _product.EditProductAsync(model);
         }
-        [HttpDelete]
-        public async void Delete(ProductShopModel model)
+        [HttpPost("SendToWarehouse/{id}")]
+        public async Task SendToWarehouse(ProductShopModel model)
         {
-            await _product.DeleteProductAsync(model);
+            await _product.SendToWarehouseAsync(model);
         }
     }
 }

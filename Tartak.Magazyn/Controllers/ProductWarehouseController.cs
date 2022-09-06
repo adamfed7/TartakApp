@@ -25,17 +25,17 @@ namespace Tartak.Magazyn.Controllers
             return _product.GetProductById(id);
         }
         [HttpPost]
-        public async void Create([FromBody] ProductWarehouseModel model)
+        public async Task Create([FromBody] ProductWarehouseModel model)
         {
             await _product.AddProductAsync(model);
         }
         [HttpPut]
-        public async void Update([FromBody] ProductWarehouseModel model)
+        public async Task Update([FromBody] ProductWarehouseModel model)
         {
             await _product.UpdateProductAsync(model);
         }
         [HttpDelete]
-        public async void Delete(ProductWarehouseModel model)
+        public async Task Delete(ProductWarehouseModel model)
         {
             await _product.DeleteProductAsync(model);
         }

@@ -4,11 +4,10 @@ namespace Tartak.Sklep.Helpers
 {
     public interface IProductHelper
     {
-        Task AddProductAsync(ProductShopModel product);
-        Task DeleteProductAsync(ProductShopModel product);
+        Task GetFromWarehouseAsync(ProductShopModel product);
         IEnumerable<ProductShopModel> GetAllProducts();
         ProductShopModel GetProductById(int id);
-        Task UpdateProductAsync(ProductShopModel product);
-        Task BackToWareHouse(ProductShopModel product);
+        Task EditProductAsync(ProductShopModel product);
+        Task SendToWarehouseAsync(ProductShopModel product);
     }
 }

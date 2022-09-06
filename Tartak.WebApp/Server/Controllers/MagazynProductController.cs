@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using Tartak.WebApp.Library.Data;
 using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
@@ -10,34 +11,25 @@ namespace Tartak.WebApp.Server.Controllers
     [ApiController]
     public class MagazynProductController : ControllerBase
     {
-        [HttpGet]
-        //[Authorize(Roles = "Manager")]
-        public IEnumerable<ProductModel> Get()
+        private readonly WarehouseProductData _productData;
+
+        public MagazynProductController(WarehouseProductData productData)
         {
-            var data = new List<ProductModel>();
-            data.Add(new ProductModel()
-            {
-                Id = 0,
-                Name = "Product",
-                Description = "The best product",
-                Price = 123.123m,
-                Quantity = 22
-            });
-            return data.AsEnumerable();
+            _productData = productData;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public async Task<IEnumerable<ProductModel>> Get()
+        {
+            return await _productData.GetProductsAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Manager")]
-        public ProductModel Get(int id)
+        public async Task<ProductModel> Get(int id)
         {
-            return new ProductModel()
-            {
-                Id = 0,
-                Name = "Product",
-                Description = "The best product",
-                Price = 123.123m,
-                Quantity = 22
-            };
+            return await _productData.GetProductByIdAsync(id);
         }
 
         [HttpPost]

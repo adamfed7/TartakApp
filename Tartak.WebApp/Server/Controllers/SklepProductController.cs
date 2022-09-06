@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Tartak.WebApp.Library.Data;
 using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
@@ -7,46 +9,37 @@ namespace Tartak.WebApp.Server.Controllers
     [ApiController]
     public class SklepProductController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<ProductModel> Get()
+        private readonly ShopProductData _productData;
+
+        public SklepProductController(ShopProductData productData)
         {
-            var data = new List<ProductModel>();
-            data.Add(new ProductModel()
-            {
-                Id = 0,
-                Name = "Product",
-                Description = "The best product",
-                Price = 123.123m,
-                Quantity = 22
-            });
-            return data;
+            _productData = productData;
+        }
+        [HttpGet]
+        public async Task<IEnumerable<ProductModel>> Get()
+        {
+            return await _productData.GetProductsAsync();
         }
 
         [HttpGet("{id}")]
-        public ProductModel Get(int id)
+        public async Task<ProductModel> Get(int id)
         {
-            return new ProductModel()
-            {
-                Id = 0,
-                Name = "Product",
-                Description = "The best product",
-                Price = 123.123m,
-                Quantity = 22
-            };
+            return await _productData.GetProductByIdAsync(id);
         }
 
-        [HttpPost]
-        public void Post([FromBody] ProductModel value)
+        [HttpPost("GetFromWarehouse")]
+        public void GetFromWarehouse([FromBody] ProductModel value)
         {
+
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] ProductModel value)
+        [HttpPut("EditProduct/{id}")]
+        public void EditProduct(int id, [FromBody] ProductModel value)
         {
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("SendToWarehouse/{id}")]
+        public void SendToWarehouse(int id)
         {
         }
     }
