@@ -9,9 +9,9 @@ namespace Tartak.WebApp.Server.Controllers
     [ApiController]
     public class MagazynProductController : ControllerBase
     {
-        private readonly WarehouseProductData _productData;
+        private readonly IWarehouseProductData _productData;
 
-        public MagazynProductController(WarehouseProductData productData)
+        public MagazynProductController(IWarehouseProductData productData)
         {
             _productData = productData;
         }

@@ -4,7 +4,7 @@ using Tartak.Magazyn.Models;
 
 namespace Tartak.WebApp.Library.Data
 {
-    public class WarehouseProductData
+    public class WarehouseProductData : IWarehouseProductData
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
@@ -63,7 +63,7 @@ namespace Tartak.WebApp.Library.Data
             var url = _configuration["Urls:WarehouseBase"] + $"ProductWarehouse";
             string json = JsonSerializer.Serialize(product);
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync(url,httpContent);
+            var response = await _httpClient.PutAsync(url, httpContent);
             if (response.IsSuccessStatusCode)
             {
                 return;

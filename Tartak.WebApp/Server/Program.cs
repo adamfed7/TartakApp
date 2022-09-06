@@ -49,7 +49,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<ShopProductData>();
-builder.Services.AddScoped<WarehouseProductData>();
+builder.Services.AddScoped<IWarehouseProductData, WarehouseProductData>();
 
 builder.Services.AddSwaggerGen(c =>
 {

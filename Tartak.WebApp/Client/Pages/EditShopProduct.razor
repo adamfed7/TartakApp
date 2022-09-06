@@ -1,0 +1,11 @@
+﻿@page "/ProduktySklep/Edit/{ID:int}"
+@using Tartak.WebApp.Shared.Models
+
+<h3>EditShopProduct</h3>
+
+@code {
+    public ProductModel exampleModel = new();
+
+    [Parameter]
+    public int ID { get; set; }
+}
