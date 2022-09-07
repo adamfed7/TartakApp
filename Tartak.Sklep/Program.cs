@@ -20,16 +20,16 @@ builder.Services.AddScoped<IProductHelper, ProductHelper>();
 
 var app = builder.Build();
 
-using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
-{
-    var context = serviceScope.ServiceProvider.GetRequiredService<ShopContext>();
-    bool creating = context.Database.EnsureCreated();
-}
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<ShopContext>();
+    bool creating = context.Database.EnsureCreated();
 }
 
 app.UseHttpsRedirection();
