@@ -1,0 +1,63 @@
+version: '3.4'
+
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+        MYSQL_DATABASE: TartakAppAuth
+    ports:
+        - 1433:1433
+
+  db2:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+        MYSQL_DATABASE: ShopAppData
+    ports:
+        - 1432:1433
+
+  db3:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+        MYSQL_DATABASE: WarehouseAppData
+    ports:
+        - 1431:1433
+
+  tartak.webapp.server:
+    image: ${DOCKER_REGISTRY-}tartakwebappserver
+    build:
+      context: .
+      dockerfile: Tartak.WebApp/Server/Dockerfile
+    ports:
+        - 5001:443
+    depends_on:
+        - db
+
+  tartak.sklep:
+    image: ${DOCKER_REGISTRY-}tartaksklep
+    restart: always
+    build:
+      context: .
+      dockerfile: Tartak.Sklep/Dockerfile
+    depends_on:
+        - db2
+
+
+  tartak.magazyn:
+    image: ${DOCKER_REGISTRY-}tartakmagazyn
+    restart: always
+    build:
+      context: .
+      dockerfile: Tartak.Magazyn/Dockerfile
+    depends_on:
+        - db3
+
+networks:
+  default:
+    name: network-aa
+
