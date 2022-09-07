@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Tartak.Magazyn.Models
 {
@@ -15,6 +17,7 @@ namespace Tartak.Magazyn.Models
         [Required]
         public decimal PurchasePrice { get; set; }
         [Required]
+        [JsonPropertyName("quantity")]
         public uint QuantityInShop { get; set; }
 
     }

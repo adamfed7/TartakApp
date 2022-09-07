@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using Tartak.WebApp.Shared.Models;
+using Tartak.Magazyn.Models;
+using Tartak.WebApp.Library.Data;
 
 namespace Tartak.WebApp.Server.Controllers
 {
@@ -10,52 +9,46 @@ namespace Tartak.WebApp.Server.Controllers
     [ApiController]
     public class MagazynProductController : ControllerBase
     {
-        [HttpGet]
-        //[Authorize(Roles = "Manager")]
-        public IEnumerable<ProductModel> Get()
+        private readonly IWarehouseProductData _productData;
+
+        public MagazynProductController(IWarehouseProductData productData)
         {
-            var data = new List<ProductModel>();
-            data.Add(new ProductModel()
-            {
-                Id = 0,
-                Name = "Product",
-                Description = "The best product",
-                Price = 123.123m,
-                Quantity = 22
-            });
-            return data.AsEnumerable();
+            _productData = productData;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public async Task<IEnumerable<ProductWarehouseModel>> Get()
+        {
+            return await _productData.GetProductsAsync();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Manager")]
-        public ProductModel Get(int id)
+        public async Task<ProductWarehouseModel> Get(int id)
         {
-            return new ProductModel()
-            {
-                Id = 0,
-                Name = "Product",
-                Description = "The best product",
-                Price = 123.123m,
-                Quantity = 22
-            };
+            return await _productData.GetProductByIdAsync(id);
         }
 
         [HttpPost]
         [Authorize(Roles = "Manager")]
-        public void Post([FromBody] ProductModel value)
+        public async Task Post([FromBody] ProductWarehouseModel value)
         {
+            await _productData.CreateProduct(value);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "Manager")]
-        public void Put(int id, [FromBody] ProductModel value)
+        public async Task Put([FromBody] ProductWarehouseModel value)
         {
+            await _productData.UpdateProduct(value);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Manager")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _productData.DeleteProduct(id);
         }
     }
 }

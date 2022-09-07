@@ -1,0 +1,66 @@
+﻿@page "/Produktymagazyn/Edit/{ID:int}"
+@using Tartak.Magazyn.Models
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h3>EditWarehouseProduct</h3>
+
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><textbox>Name: </textbox></td>
+                <td><InputText id="name" @bind-Value="exampleModel.Name"></InputText></td>
+            </tr>
+            <tr>
+                <td><textbox>Description: </textbox></td>
+                <td><InputTextArea id="description" @bind-Value="exampleModel.Description"></InputTextArea></td>
+            </tr>
+            <tr>
+                <td><textbox>Purchase price: </textbox></td>
+                <td><InputNumber id="price" @bind-Value="exampleModel.PurchasePrice"></InputNumber></td>
+            </tr>
+            <tr>
+                <td><textbox>Quantity: </textbox></td>
+                <td><InputNumber id="quantity" @bind-Value="exampleModel.QuantityInWarehouse"></InputNumber></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    public ProductWarehouseModel exampleModel = new();
+
+    [Parameter]
+    public int ID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync($"api/MagazynProduct/{ID}");
+            exampleModel = await response.Content.ReadFromJsonAsync<ProductWarehouseModel>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await Http.PutAsJsonAsync("api/MagazynProduct", exampleModel);
+            if (response.IsSuccessStatusCode)
+            {
+                NavManager.NavigateTo("/Produktymagazyn");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}

@@ -1,10 +1,12 @@
 ﻿@page "/ProduktyMagazyn"
 @using System.Text.Json
+@using Tartak.Magazyn.Models
 @using Tartak.WebApp.Shared.Models
 @inject HttpClient Http
+@inject NavigationManager NavManager
 
 <h3>Warehouse</h3>
-<button type="button" class="btn btn-secondary">Add product</button>
+<button type="button" class="btn btn-secondary" onclick="@(() => NavManager.NavigateTo("/Produktymagazyn/Add"))">Add product</button>
 <table class="table">
     <thead>
         <tr>
@@ -16,16 +18,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in _products ?? new ProductModel[0])
+        @foreach (var product in _products ?? new ProductWarehouseModel[0])
         {
             <tr>
                 <td>@product.Name</td>
                 <td>@product.Description</td>
-                <td>@($"{product.Price} zł")</td>
-                <td>@product.Quantity</td>
+                <td>@($"{product.PurchasePrice} zł")</td>
+                <td>@product.QuantityInWarehouse</td>
                 <td>
-                    <button type="button" class="btn btn-warning" style="margin:10;">Edit</button>
-                    <button type="button" class="btn btn-danger" style="margin:10;">Delete</button>
+                    <button type="button" class="btn btn-warning" style="margin:10;" onclick="@(() => NavManager.NavigateTo($"/Produktymagazyn/Edit/{product.Id}"))">Edit</button>
+                    <button type="button" class="btn btn-danger" style="margin:10;" onclick="@(() => DeleteProduct(product))">Delete</button>
                 </td>
             </tr>
         }
@@ -35,15 +37,33 @@
 
 
 @code {
-    IEnumerable<ProductModel>? _products;
+    IEnumerable<ProductWarehouseModel>? _products;
     protected override async Task OnInitializedAsync()
+    {
+        _products = await GetProducts();
+    }
+    private async Task<IEnumerable<ProductWarehouseModel>>? GetProducts()
     {
         try
         {
             var response = await Http.GetAsync("api/MagazynProduct");
-            _products = await response.Content.ReadFromJsonAsync<IEnumerable<ProductModel>>();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<ProductWarehouseModel>>();
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+    protected async Task DeleteProduct(ProductWarehouseModel product)
+    {
+        try
+        {
+            var response = await Http.DeleteAsync($"api/MagazynProduct/{product.Id}");
+            _products = await GetProducts();
+            await InvokeAsync(() => StateHasChanged());
+        }
+        catch (Exception ex)
+        {
             Console.WriteLine(ex);
         }
     }

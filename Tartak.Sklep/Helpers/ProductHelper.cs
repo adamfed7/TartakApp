@@ -13,35 +13,29 @@ namespace Tartak.Sklep.Helpers
         }
         public IEnumerable<ProductShopModel> GetAllProducts()
         {
-            return _context.Products;
+            return _context.Products.AsEnumerable();
         }
         public ProductShopModel GetProductById(int id)
         {
             return _context.Products.Where(x => x.Id == id).Single();
         }
-        public async Task AddProductAsync(ProductShopModel product)
+        public async Task GetFromWarehouseAsync(ProductShopModel product)
         {
-            await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
+
         }
-        public async Task UpdateProductAsync(ProductShopModel product)
+        public async Task EditProductAsync(ProductShopModel product)
         {
             var trackingProduct = GetProductById(product.Id);
             trackingProduct.Name = product.Name;
             trackingProduct.Description = product.Description;
             trackingProduct.PurchasePrice = product.PurchasePrice;
-            trackingProduct.QuantityInShop = product.QuantityInShop;
+            //trackingProduct.QuantityInShop = product.QuantityInShop;
             _context.Products.Update(trackingProduct);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteProductAsync(ProductShopModel product)
+        public async Task SendToWarehouseAsync(ProductShopModel product)
         {
-            _context.Products.Remove(GetProductById(product.Id));
-            await _context.SaveChangesAsync();
-        }
-        public async Task BackToWareHouse(ProductShopModel product)
-        {
-            throw new NotImplementedException();
+
         }
     }
 }

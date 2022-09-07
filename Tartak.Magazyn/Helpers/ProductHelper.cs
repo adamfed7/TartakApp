@@ -13,7 +13,7 @@ namespace Tartak.Magazyn.Helpers
         }
         public IEnumerable<ProductWarehouseModel> GetAllProducts()
         {
-            return _context.Products.Where(x => x.IsActual == true);
+            return _context.Products.Where(x => x.IsActual == true).AsEnumerable();
         }
         public ProductWarehouseModel GetProductById(int id)
         {
@@ -21,6 +21,7 @@ namespace Tartak.Magazyn.Helpers
         }
         public async Task AddProductAsync(ProductWarehouseModel product)
         {
+            product.IsActual = true;
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
         }
@@ -34,9 +35,9 @@ namespace Tartak.Magazyn.Helpers
             _context.Products.Update(trackingProduct);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteProductAsync(ProductWarehouseModel product)
+        public async Task DeleteProductAsync(int id)
         {
-            _context.Products.Where(x => x.Id == product.Id).Single().IsActual = false;
+            _context.Products.Where(x => x.Id == id).Single().IsActual = false;
             await _context.SaveChangesAsync();
         }
     }

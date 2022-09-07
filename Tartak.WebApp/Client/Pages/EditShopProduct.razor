@@ -1,0 +1,70 @@
+﻿@page "/ProduktySklep/Edit/{ID:int}"
+@using Tartak.WebApp.Shared.Models
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h3>EditShopProduct</h3>
+
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><textbox>Name: </textbox></td>
+                <td><InputText id="name" @bind-Value="exampleModel.Name"></InputText></td>
+            </tr>
+            <tr>
+                <td><textbox>Description: </textbox></td>
+                <td><InputTextArea id="description" @bind-Value="exampleModel.Description"></InputTextArea></td>
+            </tr>
+            <tr>
+                <td><textbox>Price: </textbox></td>
+                <td><InputNumber id="price" @bind-Value="exampleModel.Price"></InputNumber></td>
+            </tr>
+            <tr>
+                <td><textbox>Purchase price: </textbox></td>
+                <td><textbox id="price">@(exampleModel.PurchasePrice) zł</textbox></td>
+            </tr>
+            <tr>
+                <td><textbox>Quantity: </textbox></td>
+                <td><InputNumber id="quantity" @bind-Value="exampleModel.Quantity"></InputNumber></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code{
+    public ProductModel exampleModel = new();
+
+    [Parameter]
+    public int ID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync($"api/SklepProduct/{ID}");
+            exampleModel = await response.Content.ReadFromJsonAsync<ProductModel>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
+    public async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await Http.PutAsJsonAsync("api/SklepProduct", exampleModel);
+            if (response.IsSuccessStatusCode)
+            {
+                NavManager.NavigateTo("/Produktysklep");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}
