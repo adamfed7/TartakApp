@@ -32,7 +32,7 @@ using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().Create
     bool creating = context.Database.EnsureCreated();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
