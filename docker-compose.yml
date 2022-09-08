@@ -1,0 +1,79 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.10-management
+    container_name: 'rabbitmq'
+    networks:
+        - local
+
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+    ports:
+        - 1433:1433
+    networks:
+        - local
+
+  db2:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+    ports:
+        - 1432:1433
+    networks:
+        - local
+
+  db3:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "Password1!"
+        ACCEPT_EULA: "Y"
+    ports:
+        - 1431:1433
+    networks:
+        - local
+
+  tartak.webapp.server:
+    image: ${DOCKER_REGISTRY-}tartakwebappserver
+    restart: always
+    build:
+      context: .
+      dockerfile: Tartak.WebApp/Server/Dockerfile
+    ports:
+        - "5001:443"
+    depends_on:
+        - db
+    networks:
+        - local
+
+  sklep:
+    image: ${DOCKER_REGISTRY-}tartaksklep
+    restart: always
+    build:
+      context: .
+      dockerfile: Tartak.Sklep/Dockerfile
+    depends_on:
+        - db2
+    networks:
+        - local
+
+
+  magazyn:
+    image: ${DOCKER_REGISTRY-}tartakmagazyn
+    restart: always
+    build:
+      context: .
+      dockerfile: Tartak.Magazyn/Dockerfile
+    depends_on:
+        - db3
+    networks:
+        - local
+
+networks:
+  local:
+    driver: bridge
+
