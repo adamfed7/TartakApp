@@ -24,11 +24,6 @@ namespace Tartak.Sklep.Controllers
         {
             return _product.GetProductById(id);
         }
-        [HttpPost("GetFromWarehouse")]
-        public async Task GetFromWarehouse([FromBody] ProductShopModel model)
-        {
-            await _product.GetFromWarehouseAsync(model);
-        }
         [HttpPut]
         public async Task EditProduct([FromBody] ProductShopModel model)
         {

@@ -9,5 +9,6 @@ namespace Tartak.Magazyn.Helpers
         IEnumerable<ProductWarehouseModel> GetAllProducts();
         ProductWarehouseModel GetProductById(int id);
         Task UpdateProductAsync(ProductWarehouseModel product);
+        Task SendToShop(ProductShopModel productShopModel);
     }
 }

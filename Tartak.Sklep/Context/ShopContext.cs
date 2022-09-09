@@ -7,5 +7,9 @@ namespace Tartak.Sklep.Context
     {
         public ShopContext(DbContextOptions<ShopContext> options) : base(options) { }
         public DbSet<ProductShopModel> Products { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

@@ -19,10 +19,6 @@ namespace Tartak.Sklep.Helpers
         {
             return _context.Products.Where(x => x.Id == id).Single();
         }
-        public async Task GetFromWarehouseAsync(ProductShopModel product)
-        {
-
-        }
         public async Task EditProductAsync(ProductShopModel product)
         {
             var trackingProduct = GetProductById(product.Id);

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Tartak.Magazyn.Models
@@ -7,6 +8,8 @@ namespace Tartak.Magazyn.Models
     public class ProductShopModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ShopId { get; set; }
         [Required]
         public int Id { get; set; }
         [Required]

@@ -29,6 +29,11 @@ namespace Tartak.Magazyn.Controllers
         {
             await _product.AddProductAsync(model);
         }
+        [HttpPost("SendToShop")]
+        public async Task Create([FromBody] ProductShopModel model)
+        {
+            await _product.SendToShop(model);
+        }
         [HttpPut]
         public async Task Update([FromBody] ProductWarehouseModel model)
         {
