@@ -30,10 +30,5 @@ namespace Tartak.Sklep.Controllers
         {
             await _product.EditProductAsync(model);
         }
-        [HttpPost("SendToWarehouse/{id}")]
-        public async Task SendToWarehouse(ProductShopModel model)
-        {
-            await _product.SendToWarehouseAsync(model);
-        }
     }
 }
