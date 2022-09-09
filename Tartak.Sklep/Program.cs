@@ -48,8 +48,6 @@ using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().Create
     bool creating = context.Database.EnsureCreated();
 }
 
-//app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();

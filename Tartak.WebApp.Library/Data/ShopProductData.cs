@@ -5,7 +5,7 @@ using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Library.Data
 {
-    public class ShopProductData
+    public class ShopProductData : IShopProductData
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;

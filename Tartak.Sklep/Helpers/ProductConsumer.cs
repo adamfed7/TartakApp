@@ -8,13 +8,11 @@ namespace Tartak.Sklep.Helpers
 {
     public class ProductConsumer : IProductConsumer
     {
-        private readonly ILogger<ProductConsumer> _logger;
         private readonly ShopContext _context;
         private readonly IProductHelper _productHelper;
 
-        public ProductConsumer(ILogger<ProductConsumer> logger, ShopContext context,IProductHelper productHelper)
+        public ProductConsumer(ShopContext context,IProductHelper productHelper)
         {
-            _logger = logger;
             _context = context;
             _productHelper = productHelper;
         }

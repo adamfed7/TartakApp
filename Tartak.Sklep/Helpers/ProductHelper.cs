@@ -27,13 +27,8 @@ namespace Tartak.Sklep.Helpers
             trackingProduct.Description = product.Description;
             trackingProduct.PurchasePrice = product.PurchasePrice;
             trackingProduct.Price = product.Price;
-            //trackingProduct.QuantityInShop = product.QuantityInShop;
             _context.Products.Update(trackingProduct);
             await _context.SaveChangesAsync();
-        }
-        public async Task SendToWarehouseAsync(ProductShopModel product)
-        {
-
         }
     }
 }

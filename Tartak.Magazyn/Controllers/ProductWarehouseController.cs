@@ -10,12 +10,10 @@ namespace Tartak.Magazyn.Controllers
     public class ProductWarehouseController : ControllerBase
     {
         private readonly IProductHelper _product;
-        private readonly ILogger<ProductWarehouseController> _logger;
 
-        public ProductWarehouseController(IProductHelper product,ILogger<ProductWarehouseController> logger)
+        public ProductWarehouseController(IProductHelper product)
         {
             _product = product;
-            _logger = logger;
         }
         [HttpGet]
         public IEnumerable<ProductWarehouseModel> Get()

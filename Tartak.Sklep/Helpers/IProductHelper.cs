@@ -8,6 +8,5 @@ namespace Tartak.Sklep.Helpers
         IEnumerable<ProductShopModel> GetAllProducts();
         ProductShopModel GetProductById(int id);
         Task EditProductAsync(ProductShopModel product);
-        Task SendToWarehouseAsync(ProductShopModel product);
     }
 }
