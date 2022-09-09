@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tartak.Magazyn.Helpers;
 using Tartak.Magazyn.Models;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Magazyn.Controllers
 {
@@ -9,10 +10,12 @@ namespace Tartak.Magazyn.Controllers
     public class ProductWarehouseController : ControllerBase
     {
         private readonly IProductHelper _product;
+        private readonly ILogger<ProductWarehouseController> _logger;
 
-        public ProductWarehouseController(IProductHelper product)
+        public ProductWarehouseController(IProductHelper product,ILogger<ProductWarehouseController> logger)
         {
             _product = product;
+            _logger = logger;
         }
         [HttpGet]
         public IEnumerable<ProductWarehouseModel> Get()
@@ -28,6 +31,11 @@ namespace Tartak.Magazyn.Controllers
         public async Task Create([FromBody] ProductWarehouseModel model)
         {
             await _product.AddProductAsync(model);
+        }
+        [HttpPost("SendToShop")]
+        public async Task SendToShop([FromBody] ProductShopModel model)
+        {
+            await _product.SendToShop(model);
         }
         [HttpPut]
         public async Task Update([FromBody] ProductWarehouseModel model)

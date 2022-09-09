@@ -1,5 +1,6 @@
 ﻿using Tartak.Magazyn.Models;
 using Tartak.Sklep.Context;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Sklep.Helpers
 {
@@ -19,16 +20,13 @@ namespace Tartak.Sklep.Helpers
         {
             return _context.Products.Where(x => x.Id == id).Single();
         }
-        public async Task GetFromWarehouseAsync(ProductShopModel product)
-        {
-
-        }
         public async Task EditProductAsync(ProductShopModel product)
         {
             var trackingProduct = GetProductById(product.Id);
             trackingProduct.Name = product.Name;
             trackingProduct.Description = product.Description;
             trackingProduct.PurchasePrice = product.PurchasePrice;
+            trackingProduct.Price = product.Price;
             //trackingProduct.QuantityInShop = product.QuantityInShop;
             _context.Products.Update(trackingProduct);
             await _context.SaveChangesAsync();

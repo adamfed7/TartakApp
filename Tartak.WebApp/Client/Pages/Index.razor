@@ -74,8 +74,8 @@
                     {
                         var appuser = await resp.Content.ReadFromJsonAsync<ApplicationUser>();
                         user.Id = appuser.Id;
-                        user.IsManager = appuser.Roles.Contains("Manager");
                         user.IsAdmin = appuser.Roles.Contains("Admin");
+                        user.IsManager = appuser.Roles.Contains("Manager") || user.IsAdmin;
                         user.UserLoggedIn();
                     }
                     else{

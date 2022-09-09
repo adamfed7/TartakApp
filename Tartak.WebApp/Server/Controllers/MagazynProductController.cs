@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tartak.Magazyn.Models;
 using Tartak.WebApp.Library.Data;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {
@@ -35,6 +36,12 @@ namespace Tartak.WebApp.Server.Controllers
         public async Task Post([FromBody] ProductWarehouseModel value)
         {
             await _productData.CreateProduct(value);
+        }
+        [HttpPost("SendToShop")]
+        [Authorize(Roles = "Manager")]
+        public async Task SendToShop([FromBody] ProductShopModel value)
+        {
+            await _productData.SendToShop(value);
         }
 
         [HttpPut]

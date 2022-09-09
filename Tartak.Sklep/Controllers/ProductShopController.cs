@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tartak.Magazyn.Models;
 using Tartak.Sklep.Helpers;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Sklep.Controllers
 {
@@ -23,11 +24,6 @@ namespace Tartak.Sklep.Controllers
         public ProductShopModel GetById(int id)
         {
             return _product.GetProductById(id);
-        }
-        [HttpPost("GetFromWarehouse")]
-        public async Task GetFromWarehouse([FromBody] ProductShopModel model)
-        {
-            await _product.GetFromWarehouseAsync(model);
         }
         [HttpPut]
         public async Task EditProduct([FromBody] ProductShopModel model)

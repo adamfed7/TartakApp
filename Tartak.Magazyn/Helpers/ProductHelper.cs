@@ -1,15 +1,19 @@
-﻿using Tartak.Magazyn.Context;
+﻿
+using Tartak.Magazyn.Context;
 using Tartak.Magazyn.Models;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Magazyn.Helpers
 {
     public class ProductHelper : IProductHelper
     {
         private readonly WarehouseContext _context;
+        private readonly IProductSender _sender;
 
-        public ProductHelper(WarehouseContext context)
+        public ProductHelper(WarehouseContext context, IProductSender sender)
         {
             _context = context;
+            _sender = sender;
         }
         public IEnumerable<ProductWarehouseModel> GetAllProducts()
         {
@@ -24,6 +28,20 @@ namespace Tartak.Magazyn.Helpers
             product.IsActual = true;
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
+        }
+        public async Task SendToShop(ProductShopModel productShopModel)
+        {
+            var product = GetAllProducts().Where(x => x.Id == productShopModel.Id).FirstOrDefault();
+            if (product?.QuantityInWarehouse >= productShopModel.QuantityInShop)
+            {
+                product.QuantityInWarehouse -= productShopModel.QuantityInShop;
+                await UpdateProductAsync(product);
+                productShopModel.Name = product.Name;
+                productShopModel.Description = product.Description;
+                productShopModel.PurchasePrice = product.PurchasePrice;
+
+                await _sender.Send(productShopModel);
+            }
         }
         public async Task UpdateProductAsync(ProductWarehouseModel product)
         {

@@ -1,4 +1,5 @@
 ﻿using Tartak.Magazyn.Models;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Magazyn.Helpers
 {
@@ -9,5 +10,6 @@ namespace Tartak.Magazyn.Helpers
         IEnumerable<ProductWarehouseModel> GetAllProducts();
         ProductWarehouseModel GetProductById(int id);
         Task UpdateProductAsync(ProductWarehouseModel product);
+        Task SendToShop(ProductShopModel productShopModel);
     }
 }

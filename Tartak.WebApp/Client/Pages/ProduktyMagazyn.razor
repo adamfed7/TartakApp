@@ -4,6 +4,7 @@
 @using Tartak.WebApp.Shared.Models
 @inject HttpClient Http
 @inject NavigationManager NavManager
+@inject ILogger<ProduktyMagazyn> logger
 
 <h3>Warehouse</h3>
 <button type="button" class="btn btn-secondary" onclick="@(() => NavManager.NavigateTo("/Produktymagazyn/Add"))">Add product</button>
@@ -14,6 +15,8 @@
             <th>Description</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Quantity to shop</th>
+            <th>Price in shop</th>
             <th></th>
         </tr>
     </thead>
@@ -26,8 +29,15 @@
                 <td>@($"{product.PurchasePrice} zł")</td>
                 <td>@product.QuantityInWarehouse</td>
                 <td>
+                    <input type="number" style="margin:10;" @bind-value="@Quantity" />
+                </td>
+                <td>
+                    <input type="number" style="margin:10;" @bind-value="@Price" />
+                </td>
+                <td>
                     <button type="button" class="btn btn-warning" style="margin:10;" onclick="@(() => NavManager.NavigateTo($"/Produktymagazyn/Edit/{product.Id}"))">Edit</button>
                     <button type="button" class="btn btn-danger" style="margin:10;" onclick="@(() => DeleteProduct(product))">Delete</button>
+                    <button type="button" class="btn btn-primary" style="margin:10;" onclick="@(() => SendProductToShop(product))">Add to shop</button>
                 </td>
             </tr>
         }
@@ -38,6 +48,8 @@
 
 @code {
     IEnumerable<ProductWarehouseModel>? _products;
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
     protected override async Task OnInitializedAsync()
     {
         _products = await GetProducts();
@@ -59,6 +71,27 @@
         try
         {
             var response = await Http.DeleteAsync($"api/MagazynProduct/{product.Id}");
+            _products = await GetProducts();
+            await InvokeAsync(() => StateHasChanged());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+    protected async Task SendProductToShop(ProductWarehouseModel product){
+        try
+        {
+            var model = new ProductShopModel()
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = this.Price,
+                    PurchasePrice = product.PurchasePrice,
+                    QuantityInShop = (uint)Quantity
+                };
+            var response = await Http.PostAsJsonAsync($"api/MagazynProduct/sendToShop", model);
             _products = await GetProducts();
             await InvokeAsync(() => StateHasChanged());
         }

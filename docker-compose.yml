@@ -56,6 +56,8 @@ services:
     build:
       context: .
       dockerfile: Tartak.Sklep/Dockerfile
+    ports:
+        - "5002:80"
     depends_on:
         - db2
     networks:
@@ -68,6 +70,8 @@ services:
     build:
       context: .
       dockerfile: Tartak.Magazyn/Dockerfile
+    ports:
+        - "5003:80"
     depends_on:
         - db3
     networks:

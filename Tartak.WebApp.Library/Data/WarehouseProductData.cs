@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 using Tartak.Magazyn.Models;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Library.Data
 {
@@ -69,6 +70,19 @@ namespace Tartak.WebApp.Library.Data
                 return;
             }
             throw new HttpRequestException();
+        }
+        public async Task SendToShop(ProductShopModel product)
+        {
+            var url = _configuration["Urls:WarehouseBase"] + $"ProductWarehouse/SendToShop";
+            string json = JsonSerializer.Serialize(product);
+            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(url, httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+            
+            throw new HttpRequestException(response.StatusCode.ToString());
         }
     }
 }
