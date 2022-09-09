@@ -146,6 +146,7 @@ using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().Create
     }
     context.Dispose();
 }
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

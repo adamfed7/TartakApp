@@ -42,7 +42,6 @@ var app = builder.Build();
     app.UseSwaggerUI();
 }
 
-
 app.UseAuthorization();
 
 app.MapControllers();

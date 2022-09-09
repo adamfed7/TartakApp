@@ -8,9 +8,9 @@ namespace Tartak.WebApp.Server.Controllers
     [ApiController]
     public class SklepProductController : ControllerBase
     {
-        private readonly ShopProductData _productData;
+        private readonly IShopProductData _productData;
 
-        public SklepProductController(ShopProductData productData)
+        public SklepProductController(IShopProductData productData)
         {
             _productData = productData;
         }
