@@ -9,5 +9,6 @@ namespace Tartak.WebApp.Library.Data
         Task<ProductWarehouseModel> GetProductByIdAsync(int id);
         Task<IEnumerable<ProductWarehouseModel>> GetProductsAsync();
         Task UpdateProduct(ProductWarehouseModel product);
+        Task SendToShop(ProductWarehouseModel product);
     }
 }

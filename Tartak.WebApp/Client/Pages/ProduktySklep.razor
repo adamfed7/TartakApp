@@ -6,10 +6,6 @@
 @inject User user
 
 <h3>Shop</h3>
-@if (user.IsManager)
-{
-    <button type="button" class="btn btn-secondary" onclick="@(() => NavManager.NavigateTo("/Produktysklep/Add"))">Add from warehouse</button>
-}
 <table class="table">
     <thead>
         <tr>

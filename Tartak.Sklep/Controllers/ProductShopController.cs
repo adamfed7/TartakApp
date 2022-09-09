@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tartak.Magazyn.Models;
 using Tartak.Sklep.Helpers;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Sklep.Controllers
 {

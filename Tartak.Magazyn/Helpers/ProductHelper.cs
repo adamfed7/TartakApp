@@ -1,5 +1,7 @@
-﻿using Tartak.Magazyn.Context;
+﻿
+using Tartak.Magazyn.Context;
 using Tartak.Magazyn.Models;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Magazyn.Helpers
 {

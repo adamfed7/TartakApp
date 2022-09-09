@@ -1,4 +1,5 @@
 ﻿using Tartak.Magazyn.Models;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Sklep.Helpers
 {

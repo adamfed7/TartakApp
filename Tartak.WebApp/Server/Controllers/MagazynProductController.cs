@@ -36,6 +36,12 @@ namespace Tartak.WebApp.Server.Controllers
         {
             await _productData.CreateProduct(value);
         }
+        [HttpPost("SendToShop")]
+        [Authorize(Roles = "Manager")]
+        public async Task SendToShop([FromBody] ProductWarehouseModel value)
+        {
+            await _productData.SendToShop(value);
+        }
 
         [HttpPut]
         [Authorize(Roles = "Manager")]

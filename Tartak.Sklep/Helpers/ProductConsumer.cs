@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Tartak.Magazyn.Models;
 using Tartak.Sklep.Context;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Sklep.Helpers
 {
@@ -19,7 +20,7 @@ namespace Tartak.Sklep.Helpers
         }
         public async Task Consume(ConsumeContext<ProductShopModel> context)
         {
-            _logger.LogError("___________________________________________" + context.Message.Name);
+            _logger.LogError("___________________________________________" + context.Message.QuantityInShop);
             var reqProduct = context.Message;
             var product = _productHelper.GetAllProducts().Where(x => x.Id == reqProduct.Id).FirstOrDefault();
             if(product == null)
