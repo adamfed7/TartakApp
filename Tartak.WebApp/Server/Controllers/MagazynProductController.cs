@@ -18,41 +18,41 @@ namespace Tartak.WebApp.Server.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<IEnumerable<ProductWarehouseModel>> Get()
         {
             return await _productData.GetProductsAsync();
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task<ProductWarehouseModel> Get(int id)
         {
             return await _productData.GetProductByIdAsync(id);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task Post([FromBody] ProductWarehouseModel value)
         {
             await _productData.CreateProduct(value);
         }
         [HttpPost("SendToShop")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task SendToShop([FromBody] ProductShopModel value)
         {
             await _productData.SendToShop(value);
         }
 
         [HttpPut]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task Put([FromBody] ProductWarehouseModel value)
         {
             await _productData.UpdateProduct(value);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager,Admin")]
         public async Task Delete(int id)
         {
             await _productData.DeleteProduct(id);

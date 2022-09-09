@@ -17,11 +17,11 @@ namespace Tartak.Magazyn.Helpers
         }
         public IEnumerable<ProductWarehouseModel> GetAllProducts()
         {
-            return _context.Products.Where(x => x.IsActual == true).AsEnumerable();
+            return _context.Products.Where(x => x.IsActual == true && x.QuantityInWarehouse > 0).AsEnumerable();
         }
         public ProductWarehouseModel GetProductById(int id)
         {
-            return _context.Products.Where(x => x.IsActual == true && x.Id == id).Single();
+            return _context.Products.Where(x => x.IsActual == true && x.Id == id && x.QuantityInWarehouse > 0).Single();
         }
         public async Task AddProductAsync(ProductWarehouseModel product)
         {
