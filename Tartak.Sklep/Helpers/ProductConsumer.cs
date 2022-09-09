@@ -20,7 +20,6 @@ namespace Tartak.Sklep.Helpers
         }
         public async Task Consume(ConsumeContext<ProductShopModel> context)
         {
-            _logger.LogError("___________________________________________" + context.Message.QuantityInShop);
             var reqProduct = context.Message;
             var product = _productHelper.GetAllProducts().Where(x => x.Id == reqProduct.Id).FirstOrDefault();
             if(product == null)
@@ -33,6 +32,7 @@ namespace Tartak.Sklep.Helpers
             else
             {
                 product.QuantityInShop += reqProduct.QuantityInShop;
+                product.Price = reqProduct.Price;
                 await _productHelper.EditProductAsync(product);
             }
         }

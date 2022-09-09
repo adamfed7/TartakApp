@@ -71,19 +71,10 @@ namespace Tartak.WebApp.Library.Data
             }
             throw new HttpRequestException();
         }
-        public async Task SendToShop(ProductWarehouseModel product)
+        public async Task SendToShop(ProductShopModel product)
         {
-            var model = new ProductShopModel()
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = 0,
-                PurchasePrice = product.PurchasePrice,
-                QuantityInShop = (uint)product.QuantityInWarehouse
-            };
             var url = _configuration["Urls:WarehouseBase"] + $"ProductWarehouse/SendToShop";
-            string json = JsonSerializer.Serialize(model);
+            string json = JsonSerializer.Serialize(product);
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, httpContent);
             if (response.IsSuccessStatusCode)
