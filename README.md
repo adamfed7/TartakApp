@@ -43,3 +43,5 @@ $ docker-compose up --force-recreate --build
 ```
 Next run your browser on address: https://localhost:5001/  
 You can use app.
+Login: "Admin" or "Manager"
+Password: "admin" to Admin or "manager" to Manager
