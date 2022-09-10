@@ -20,7 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductHelper, ProductHelper>();
-builder.Services.AddScoped<IProductSender, ProductSender>();
+builder.Services.AddScoped<IProductSenderHelper, ProductSenderHelper>();
 
 
 builder.Services.AddMassTransit(x =>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Tartak.WebApp.Shared.Models
 {
-    public class ApplicationUser
+    public class ApplicationUserModel
     {
         public string Id { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Tartak.WebApp.Client.Model
 {
-    public class User
+    public class UserModel
     {
         public event EventHandler<EventArgs> UserStatusChanged;
         public string Id { get; set; }

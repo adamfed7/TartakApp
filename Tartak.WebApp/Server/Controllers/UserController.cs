@@ -22,9 +22,9 @@ namespace Tartak.WebApp.Server.Controllers
             _userManager = userManager;
         }
         [HttpGet]
-        public ApplicationUser GetCurrentUserInfo()
+        public ApplicationUserModel GetCurrentUserInfo()
         {
-            ApplicationUser applicationUserModel = new();
+            ApplicationUserModel applicationUserModel = new();
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.Users.Where(x => x.Id == userId).Single();
             applicationUserModel.Id = user.Id;
@@ -36,12 +36,12 @@ namespace Tartak.WebApp.Server.Controllers
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("GetAllUsers")]
-        public List<ApplicationUser> GetAllUsers()
+        public List<ApplicationUserModel> GetAllUsers()
         {
-            List<ApplicationUser> output = new List<ApplicationUser>();
+            List<ApplicationUserModel> output = new List<ApplicationUserModel>();
             foreach (var user in _context.Users)
             {
-                ApplicationUser applicationUserModel = new ApplicationUser();
+                ApplicationUserModel applicationUserModel = new ApplicationUserModel();
                 applicationUserModel.Id = user.Id;
                 applicationUserModel.Name = user.UserName;
 

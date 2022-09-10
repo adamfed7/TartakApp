@@ -5,7 +5,7 @@
 @using Tartak.WebApp.Shared.Models
 @inject NavigationManager navManager
 @inject HttpClient Http
-@inject User user
+@inject UserModel user
 @if (!user.IsLoggedIn)
 {
     <PageTitle>Log in</PageTitle>
@@ -62,7 +62,7 @@
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    AuthenticatedUser? output = await response.Content.ReadFromJsonAsync<AuthenticatedUser>();
+                    AuthenticatedUserModel? output = await response.Content.ReadFromJsonAsync<AuthenticatedUserModel>();
                     user.Token = output.access_token;
                     user.Name = output.userName;
                     user.IsLoggedIn = true;
@@ -72,7 +72,7 @@
                     var resp = await Http.GetAsync("api/User");
                     if (resp.IsSuccessStatusCode)
                     {
-                        var appuser = await resp.Content.ReadFromJsonAsync<ApplicationUser>();
+                        var appuser = await resp.Content.ReadFromJsonAsync<ApplicationUserModel>();
                         user.Id = appuser.Id;
                         user.IsAdmin = appuser.Roles.Contains("Admin");
                         user.IsManager = appuser.Roles.Contains("Manager") || user.IsAdmin;

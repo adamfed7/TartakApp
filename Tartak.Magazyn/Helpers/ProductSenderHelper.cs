@@ -4,11 +4,11 @@ using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Magazyn.Helpers
 {
-    public class ProductSender : IProductSender
+    public class ProductSenderHelper : IProductSenderHelper
     {
         private readonly IBus _bus;
 
-        public ProductSender(IBus bus)
+        public ProductSenderHelper(IBus bus)
         {
             _bus = bus;
         }

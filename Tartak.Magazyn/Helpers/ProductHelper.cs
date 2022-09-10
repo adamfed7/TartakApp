@@ -8,9 +8,9 @@ namespace Tartak.Magazyn.Helpers
     public class ProductHelper : IProductHelper
     {
         private readonly WarehouseContext _context;
-        private readonly IProductSender _sender;
+        private readonly IProductSenderHelper _sender;
 
-        public ProductHelper(WarehouseContext context, IProductSender sender)
+        public ProductHelper(WarehouseContext context, IProductSenderHelper sender)
         {
             _context = context;
             _sender = sender;

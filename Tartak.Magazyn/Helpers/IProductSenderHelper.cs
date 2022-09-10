@@ -3,7 +3,7 @@ using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.Magazyn.Helpers
 {
-    public interface IProductSender
+    public interface IProductSenderHelper
     {
         Task Send(ProductShopModel shopModel);
     }
