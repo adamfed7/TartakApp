@@ -4,8 +4,8 @@ Simple shop and warehouse app project
 
 
 ## General info
-This project is a simple warehouse and store management application.
-This app allows you to manage the product in the shop and warehouse. You can send the product from warehouse to store too.
+This project is a simple warehouse and shop management application.
+This app allows you to manage the product in the shop and warehouse. You can send the product from warehouse to shop too.
 This application includes login panel.
 
 ## Scheme
