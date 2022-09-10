@@ -39,7 +39,7 @@ To run this project, install Docker and Visual Studio 2022. Open it in VS and ru
 Then in PowerShell or cmd:
 ```
 $ cd ../TartakApp
-$ docker-compose up --force-recreate --build
+$ docker-compose up
 ```
 Next run your browser on address: https://localhost:5001/  
 You can use app.  
