@@ -45,6 +45,7 @@ services:
       dockerfile: Tartak.WebApp/Server/Dockerfile
     ports:
         - "5001:443"
+        - "5002:80"
     depends_on:
         - db
     networks:
@@ -57,7 +58,7 @@ services:
       context: .
       dockerfile: Tartak.Sklep/Dockerfile
     ports:
-        - "5002:80"
+        - "5003:80"
     depends_on:
         - db2
     networks:
@@ -71,7 +72,7 @@ services:
       context: .
       dockerfile: Tartak.Magazyn/Dockerfile
     ports:
-        - "5003:80"
+        - "5004:80"
     depends_on:
         - db3
     networks:
