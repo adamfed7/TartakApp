@@ -5,6 +5,7 @@ using System.Data;
 using System.Security.Claims;
 using Tartak.WebApp.Models;
 using Tartak.WebApp.Server.Data;
+using Tartak.WebApp.Shared.Models;
 
 namespace Tartak.WebApp.Server.Controllers
 {
