@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Tartak.Magazyn.Models;
 using Tartak.Sklep.Context;
 using Tartak.WebApp.Shared.Models;
 

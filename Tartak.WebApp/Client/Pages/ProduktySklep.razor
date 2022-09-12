@@ -25,11 +25,14 @@
                 <td>@($"{product.Price} zł")</td>
                 <td>@product.Quantity</td>
                 <td>
-                    @if(user.IsManager)
+                    @if(user.IsManager || user.IsAdmin)
                     {
                         <button type="button" class="btn btn-warning" style="margin:10;" onclick="@(() => NavManager.NavigateTo($"/ProduktySklep/Edit/{product.Id}"))">Edit</button>
                     }
-                    <button type="button" class="btn btn-primary" style="margin:10;" onclick="@(() => BuyProduct(product))">Buy</button>
+                    else
+                    {
+                        <button type="button" class="btn btn-primary" style="margin:10;" onclick="@(() => BuyProduct(product))">Buy</button>
+                    }          
                 </td>
             </tr>
         }
