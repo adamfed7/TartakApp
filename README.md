@@ -30,7 +30,6 @@ Project is created with:
 * .NET6.0
 * Entity Framework Core 6.0.8
 * MS SQL Server
-* Swagger
 * RabbitMQ 3.10
 * Docker 20.10.17
 * Docker-compose 3.4 
